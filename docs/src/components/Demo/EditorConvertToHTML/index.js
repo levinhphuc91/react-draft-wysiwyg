@@ -7,7 +7,7 @@ import { Editor } from 'react-draft-wysiwyg';
 import Codemirror from 'react-codemirror';
 import '../../../../node_modules/codemirror/lib/codemirror.css';
 
-class ConvertToRawDraftContent extends Component {
+class EditorConvertToHTML extends Component {
   state = {
     editorState: EditorState.createEmpty(),
   }
@@ -22,47 +22,46 @@ class ConvertToRawDraftContent extends Component {
     const { editorState } = this.state;
     return (<div className="rdw-storybook-root">
       <Editor
-        mention={{
-          separator: ' ',
-          trigger: '@',
-          suggestions: [
-            { text: 'APPLE', value: 'apple', url: 'apple' },
-            { text: 'BANANA', value: 'banana', url: 'banana' },
-            { text: 'CHERRY', value: 'cherry', url: 'cherry' },
-            { text: 'DURIAN', value: 'durian', url: 'durian' },
-            { text: 'EGGFRUIT', value: 'eggfruit', url: 'eggfruit' },
-            { text: 'FIG', value: 'fig', url: 'fig' },
-            { text: 'GRAPEFRUIT', value: 'grapefruit', url: 'grapefruit' },
-            { text: 'HONEYDEW', value: 'honeydew', url: 'honeydew' },
-          ],
-        }}
         editorState={editorState}
-        toolbarClassName="rdw-storybook-toolbar"
-        wrapperClassName="rdw-storybook-wrapper"
-        editorClassName="rdw-storybook-editor"
+        wrapperClassName="demo-wrapper"
+        editorClassName="demo-editor"
         onEditorStateChange={this.onEditorStateChange}
       />
       <textarea
-        readOnly
-        className="rdw-storybook-textarea"
+        disabled
+        className="demo-content no-focus"
         value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}
       />
       <Codemirror
         value={
-          '<RangeSlider\n  ' +
-            'step={5}\n  ' +
-            'value={value}\n  ' +
-            'min={-100}\n  ' +
-            'max={100}\n  ' +
-            'onChange={this.onChange}\n  ' +
-            'wrapperStyle={styles.slider}\n  ' +
-            'trackStyle={styles.trackStyle}\n  ' +
-            'highlightedTrackStyle={styles.highlightedTrackStyle}\n  ' +
-            'handleStyle={styles.handleStyle}\n  ' +
-            'hoveredHandleStyle={styles.hoveredHandleStyle}\n  ' +
-            'focusedHandleStyle={styles.focusedHandleStyle}\n  ' +
-            'activeHandleStyle={styles.activeHandleStyle}\n' +
-          '/>'
+          'class EditorConvertToHTML extends Component {\n' +
+          '  state = {\n' +
+          '   editorState: EditorState.createEmpty(),\n' +
+          ' }\n' +
+          '\n' +
+          ' onEditorStateChange: Function = (editorState) => {\n' +
+          '   this.setState({\n' +
+          '     editorState,\n' +
+          '   });\n' +
+          ' };\n' +
+          '\n' +
+          ' render() {\n' +
+          '   const { editorState } = this.state;\n' +
+          '   return (<div className="rdw-storybook-root">\n' +
+          '     <Editor\n' +
+          '       editorState={editorState}\n' +
+          '       wrapperClassName="demo-wrapper"\n' +
+          '       editorClassName="demo-editor"\n' +
+          '       onEditorStateChange={this.onEditorStateChange}\n' +
+          '     />\n' +
+          '     <textarea\n' +
+          '       disabled\n' +
+          '       className="demo-content no-focus"\n' +
+          '       value={draftToHtml(convertToRaw(editorState.getCurrentContent()))}\n' +
+          '     />\n' +
+          '   </div>);\n' +
+          ' }\n' +
+          '}'
         }
         options={{
           lineNumbers: true,
@@ -74,4 +73,4 @@ class ConvertToRawDraftContent extends Component {
   }
 }
 
-export default ConvertToRawDraftContent;
+export default EditorConvertToHTML;

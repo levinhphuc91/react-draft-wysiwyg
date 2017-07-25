@@ -5,6 +5,7 @@ import draftToHtml from 'draftjs-to-html';
 import { convertToRaw } from 'draft-js';
 import draftToMarkdown from 'draftjs-to-markdown';
 import { Editor } from 'react-draft-wysiwyg';
+import EditorConvertToHTML from './EditorConvertToHTML';
 import uploadImageCallBack from '../../util/uploadImageCallBack';
 import sampleEditorContent from '../../util/sampleEditorContent';
 import bold from '../../../images/demo/bold.gif';
@@ -28,6 +29,7 @@ import image from '../../../images/demo/image.gif';
 import undo from '../../../images/demo/undo.gif';
 import redo from '../../../images/demo/redo.gif';
 import ColorPic from './ColorPic';
+require('codemirror/mode/jsx/jsx');
 import './styles.css';
 
 export default class Demo extends Component {
@@ -49,6 +51,7 @@ export default class Demo extends Component {
     const { editorContents } = this.state;
     return (
       <div className="demo-root">
+        <EditorConvertToHTML />
         <div className="demo-label">
           Editor with output generated in HTML.
         </div>
